@@ -1,17 +1,22 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+    <UserList :users="users"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import UserList from './components/UserList';
+import userList from './data/user.list.json';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    UserList,
+  },
+  data() {
+    return {
+      users: userList,
+    };
   },
 };
 </script>
