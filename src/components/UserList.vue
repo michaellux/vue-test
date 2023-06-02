@@ -1,26 +1,29 @@
 <template>
-    <div class="table-container" role="table" aria-label="Users">
-      <div class="flex-table header" role="rowgroup">
-        <div class="flex-row" role="columnheader">Имя</div>
-        <div class="flex-row" role="columnheader">Телефон</div>
-      </div>
-      <UserItem v-for="user in users" :user="user" :key="user.id">
-
-      </UserItem>
-    <!-- <div class="flex-table row" role="rowgroup" v-for="user in users" :key="user.id">
-        <div class="flex-row" role="cell">{{user.name}}</div>
-        <div class="flex-row" role="cell">{{user.phone}}</div>
-    </div> -->
-  </div>
+    <div :class="styleRoot" role="table" aria-label="Users">
+      <Header v-if="isRoot" :names="names" />
+      <UserItem v-for="user in users" :user="user" :key="user.id" />
+    </div>
 </template>
 
 <script>
+import Header from '../components/views/table/Header';
 import UserItem from './UserItem';
 
 export default {
-  components: { UserItem },
+  components: { Header, UserItem },
   name: 'UserList',
+  data() {
+    return {
+      names: ['Имя', 'Телефон'],
+    };
+  },
   props: {
+    isRoot: {
+      type: Boolean,
+      default() {
+        return false;
+      },
+    },
     users: {
       type: Array,
       default() {
@@ -28,11 +31,13 @@ export default {
       },
     },
   },
-  // data() {
-  //   return {
-  //     users: userList,
-  //   };
-  // },
+  computed: {
+    styleRoot() {
+      return {
+        'root-container': this.isRoot,
+      };
+    },
+  },
 };
 </script>
 
@@ -41,7 +46,7 @@ div {
   box-sizing: border-box;
 }
 
-.table-container {
+.root-container {
   display: block;
   margin: 2em;
   width: 90%;

@@ -3,7 +3,11 @@
 import Vue from 'vue';
 import App from './App';
 
+import UserList from './components/UserList';
+
 Vue.config.productionTip = false;
+
+Vue.component('UserList', UserList);
 
 /* eslint-disable no-new */
 new Vue({

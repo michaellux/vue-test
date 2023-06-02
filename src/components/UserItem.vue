@@ -2,15 +2,15 @@
   <div class="flex-table row">
         <div class="flex-row" role="cell">{{user.name}}</div>
         <div class="flex-row" role="cell">{{user.phone}}</div>
+        <UserList v-if="hasEmployees"/>
   </div>
 </template>
 
 <script>
-import UserList from '../components/UserList';
+import userList from '../data/user.list.json';
 
 export default {
   name: 'UserItem',
-  components: { UserList },
   props: {
     user: {
       type: Object,

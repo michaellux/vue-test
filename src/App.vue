@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <UserList :users="users"/>
+    <UserList :isRoot="isRoot" :users="users"/>
   </div>
 </template>
 
@@ -15,6 +15,7 @@ export default {
   },
   data() {
     return {
+      isRoot: true,
       users: userList,
     };
   },
