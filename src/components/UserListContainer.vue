@@ -2,7 +2,7 @@
     <div class="container">
       <a class="button" href="#popup">Добавить</a>
       <UserList :isRoot="isRoot" :users="users"/>
-      <AddUserItemPopUp/>
+      <AddUserItemPopUp :users="users"/>
     </div>
 </template>
 

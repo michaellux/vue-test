@@ -7,19 +7,23 @@
       <form>
         <div class="form-block">
           <label for="name">Имя</label>
-          <input class="input-name" name="name" id="name" type="text">
+          <input required v-model="newUser.name"
+          class="input-name" name="name" id="name" type="text">
         </div>
         <div class="form-block">
           <label for="phone">Телефон</label>
-          <input class="input-phone" name="phone" id="phone" type="tel">
+          <input required
+          v-model="newUser.phone" class="input-phone" name="phone" id="phone" type="tel">
         </div>
         <div class="form-block">
           <label for="boss">Начальник</label>
-          <select class="select-boss" name="boss" id="boss">
-            <option disabled value="">Test</option>
+          <select v-model="newUser.boss" class="select-boss" name="boss" id="boss">
+            <option value="">Нет начальника</option>
+            <option v-for="boss in bosses" :key="boss.id" :value="boss.id">{{boss.name}}</option>
           </select>
         </div>
-        <a class="save-button" href="#popup">Сохранить</a>
+        <button type="button" @click="addUser"
+        class="save-button">Сохранить</button>
       </form>
     </div>
   </div>
@@ -29,6 +33,50 @@
 <script>
 export default {
   name: 'AddUserItemPopup',
+  props: {
+    users: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+  },
+  data() {
+    return {
+      newUser: {
+        name: '',
+        phone: '',
+        boss: null,
+      },
+    };
+  },
+  methods: {
+    addUser() {
+      const users = this.$parent.users;
+      const allUserIds = users.map(user => user.id);
+      const maxUserId = Math.max(...allUserIds);
+      const user = {
+        id: maxUserId + 1,
+        name: this.newUser.name,
+        phone: this.newUser.phone,
+        parent: this.newUser.boss === '' ? null : this.newUser.boss,
+      };
+
+      const updatedUserList = [...this.$parent.users, user];
+      updatedUserList.forEach((element, index) => {
+        this.$set(this.$parent.users, index, element);
+      });
+    },
+  },
+  computed: {
+    bosses() {
+      const users = this.$parent.users;
+      const employees = users.filter(user => user.parent !== null);
+      const bossesId = employees.map(employee => employee.parent);
+      const bosses = users.filter(user => bossesId.includes(user.id));
+      return bosses;
+    },
+  },
 };
 </script>
 

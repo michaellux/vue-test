@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import userList from '../data/user.list.json';
-
 export default {
   name: 'UserItem',
   props: {
@@ -21,10 +19,12 @@ export default {
   },
   computed: {
     hasEmployees() {
-      return userList.filter(user => user.parent === this.user.id).length > 0;
+      const users = this.$parent.$props.users;
+      return users.filter(user => user.parent === this.user.id).length > 0;
     },
     users() {
-      return userList.filter(user => user.parent === this.user.id);
+      const users = this.$parent.$props.users;
+      return users.filter(user => user.parent === this.user.id);
     },
   },
 };

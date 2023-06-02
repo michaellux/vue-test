@@ -39,7 +39,8 @@ export default {
   },
   computed: {
     filteredUsers() {
-      return this.users.filter(user => user.parent === this.id);
+      const filteredUsers = this.users.filter(user => user.parent === this.id);
+      return filteredUsers;
     },
   },
 };
