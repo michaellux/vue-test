@@ -1,5 +1,5 @@
 <template>
-    <div class="container" role="table" aria-label="Users">
+    <div class="table-container" role="table" aria-label="Users">
       <Header v-if="isRoot" :names="names" />
       <UserItem v-for="user in filteredUsers" :user="user" :key="user.id" />
     </div>
@@ -50,9 +50,8 @@ div {
   box-sizing: border-box;
 }
 
-.container {
+.table-container {
   display: block;
-  margin: 2em;
   width: 90%;
   max-width: 1000px;
 }
@@ -64,7 +63,7 @@ div {
   transition: 0.5s;
 }
 
-.container .header .flex-row {
+.table-container .header .flex-row {
   background: #1976D2;
   color: white;
   border-color: #1565C0;

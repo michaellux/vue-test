@@ -1,23 +1,16 @@
 <template>
   <div id="app">
-    <UserList :isRoot="isRoot" :users="users"/>
+    <UserListContainer />
   </div>
 </template>
 
 <script>
-import UserList from './components/UserList';
-import userList from './data/user.list.json';
+import UserListContainer from './components/UserListContainer';
 
 export default {
   name: 'App',
   components: {
-    UserList,
-  },
-  data() {
-    return {
-      isRoot: true,
-      users: userList,
-    };
+    UserListContainer,
   },
 };
 </script>
@@ -27,7 +20,6 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
