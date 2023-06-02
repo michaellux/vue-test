@@ -2,7 +2,7 @@
   <div class="flex-table row">
         <div class="flex-row" role="cell">{{user.name}}</div>
         <div class="flex-row" role="cell">{{user.phone}}</div>
-        <UserList v-if="hasEmployees"/>
+        <UserList :id="user.id" v-if="hasEmployees" :users="users"/>
   </div>
 </template>
 
@@ -21,7 +21,10 @@ export default {
   },
   computed: {
     hasEmployees() {
-      return this.user.employees.length > 0;
+      return userList.filter(user => user.parent === this.user.id).length > 0;
+    },
+    users() {
+      return userList.filter(user => user.parent === this.user.id);
     },
   },
 };

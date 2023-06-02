@@ -1,7 +1,7 @@
 <template>
-    <div :class="styleRoot" role="table" aria-label="Users">
+    <div class="container" role="table" aria-label="Users">
       <Header v-if="isRoot" :names="names" />
-      <UserItem v-for="user in users" :user="user" :key="user.id" />
+      <UserItem v-for="user in filteredUsers" :user="user" :key="user.id" />
     </div>
 </template>
 
@@ -18,6 +18,12 @@ export default {
     };
   },
   props: {
+    id: {
+      type: Number,
+      default() {
+        return null;
+      },
+    },
     isRoot: {
       type: Boolean,
       default() {
@@ -32,10 +38,8 @@ export default {
     },
   },
   computed: {
-    styleRoot() {
-      return {
-        'root-container': this.isRoot,
-      };
+    filteredUsers() {
+      return this.users.filter(user => user.parent === this.id);
     },
   },
 };
@@ -46,7 +50,7 @@ div {
   box-sizing: border-box;
 }
 
-.root-container {
+.container {
   display: block;
   margin: 2em;
   width: 90%;
@@ -60,7 +64,7 @@ div {
   transition: 0.5s;
 }
 
-.flex-table:first-of-type .flex-row {
+.container .header .flex-row {
   background: #1976D2;
   color: white;
   border-color: #1565C0;

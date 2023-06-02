@@ -3,30 +3,30 @@
     "id": 1,
     "name": "Марина",
     "phone": "+7 941 123 21 42",
-    "employees": []
+    "parent": null
   },
   {
     "id": 2,
     "name": "Петр",
     "phone": "+7 941 123 21 42",
-    "employees": []
+    "parent": null
   },
   {
     "id": 3,
     "name": "Алексей",
     "phone": "+7 941 123 21 42",
-    "employees": [4]
+    "parent": null
   },
   {
     "id": 4,
     "name": "Иван",
     "phone": "+7 941 123 21 42",
-    "employees": []
+    "parent": 3
   },
   {
     "id": 5,
     "name": "Борис",
     "phone": "+7 941 123 21 42",
-    "employees": []
+    "parent": null
   }
 ]
