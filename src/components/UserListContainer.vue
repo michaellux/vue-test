@@ -1,17 +1,20 @@
 <template>
-  <div class="container">
-    <button class="button">Добавить</button>
-    <UserList :isRoot="isRoot" :users="users"/>
-  </div>
+    <div class="container">
+      <a class="button" href="#popup">Добавить</a>
+      <UserList :isRoot="isRoot" :users="users"/>
+      <AddUserItemPopUp/>
+    </div>
 </template>
 
 <script>
 import UserList from './UserList';
+import AddUserItemPopUp from './AddUserItemPopup';
+
 import userList from '../data/user.list.json';
 
 export default {
   components: {
-    UserList,
+    UserList, AddUserItemPopUp,
   },
   data() {
     return {
@@ -26,6 +29,7 @@ export default {
 .container {
   margin: 2em;
 }
+
 .button {
     background-color: #4CAF50;
     border: none;
