@@ -19,8 +19,19 @@ export default {
   data() {
     return {
       isRoot: true,
-      users: userList,
+      users: [],
     };
+  },
+  mounted() {
+    if (localStorage.getItem('users') != null) {
+      try {
+        this.users = JSON.parse(localStorage.getItem('users'));
+      } catch (e) {
+        this.users = userList;
+      }
+    } else {
+      this.users = userList;
+    }
   },
 };
 </script>

@@ -66,6 +66,13 @@ export default {
       updatedUserList.forEach((element, index) => {
         this.$set(this.$parent.users, index, element);
       });
+
+      this.saveUser();
+    },
+    saveUser() {
+      const users = this.$parent.users;
+      const parsedUsers = JSON.stringify(users);
+      localStorage.setItem('users', parsedUsers);
     },
   },
   computed: {
