@@ -1,14 +1,25 @@
 <template>
-  <div :id="user.id" class="flex-table row">
-        <div class="flex-row" role="cell">{{user.name}}</div>
+  <div :id="user.id" class="flex-table row" @click.stop="switchShowEmployee">
+        <div class="flex-row" role="cell">
+          <span>{{
+            hasEmployees ?
+            (showEmployees === true ? '-' : '+') : ''
+          }}</span>
+          {{user.name}}
+        </div>
         <div class="flex-row" role="cell">{{user.phone}}</div>
-        <UserList :id="user.id" v-if="hasEmployees" :users="users"/>
+        <UserList :id="user.id" v-if="hasEmployees" v-show="showEmployees" :users="users"/>
   </div>
 </template>
 
 <script>
 export default {
   name: 'UserItem',
+  data() {
+    return {
+      showEmployees: true,
+    };
+  },
   props: {
     user: {
       type: Object,
@@ -25,6 +36,14 @@ export default {
     },
     hasEmployees() {
       return this.users.length > 0;
+    },
+  },
+  methods: {
+    switchShowEmployee() {
+      debugger;
+      if (this.hasEmployees) {
+        this.showEmployees = !this.showEmployees;
+      }
     },
   },
 };
