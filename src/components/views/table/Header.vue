@@ -1,6 +1,7 @@
 <template>
   <div class="flex-table header" role="rowgroup">
-    <HeaderItem v-for="(name, index) in names" :name="name" :key="index"/>
+    <HeaderItem
+      v-for="(header, index) in headers" :label="header.label" :name="header.name" :key="index"/>
   </div>
 </template>
 
@@ -11,7 +12,7 @@ export default {
   name: 'Header',
   components: { HeaderItem },
   props: {
-    names: {
+    headers: {
       type: Array,
       default() {
         return [];

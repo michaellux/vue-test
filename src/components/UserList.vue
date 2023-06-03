@@ -1,6 +1,6 @@
 <template>
     <div class="table-container" role="table" aria-label="Users">
-      <Header v-if="isRoot" :names="names" />
+      <Header v-if="isRoot" :headers="headers" />
       <UserItem v-for="user in filteredUsers" :user="user" :key="user.id" />
     </div>
 </template>
@@ -14,7 +14,15 @@ export default {
   name: 'UserList',
   data() {
     return {
-      names: ['Имя', 'Телефон'],
+      headers:
+      [{
+        label: 'name',
+        name: 'Имя',
+      }, {
+        label: 'phone',
+        name: 'Телефон',
+      },
+      ],
     };
   },
   props: {

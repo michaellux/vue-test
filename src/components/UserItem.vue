@@ -2,7 +2,7 @@
   <div :id="user.id" class="flex-table row">
         <div class="flex-row" role="cell">{{user.name}}</div>
         <div class="flex-row" role="cell">{{user.phone}}</div>
-        <UserList :allUsers="allUsers" :id="user.id" v-if="hasEmployees" :users="users"/>
+        <UserList :id="user.id" v-if="hasEmployees" :users="users"/>
   </div>
 </template>
 
