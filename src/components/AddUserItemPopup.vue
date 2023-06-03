@@ -206,6 +206,10 @@ export default {
     font-size: 16px;
     margin: 2rem;
     float: left;
+    cursor: pointer;
+}
+.save-button:hover {
+  background-color:  #5848bc;
 }
 
 .input-name, .input-phone {
@@ -215,11 +219,33 @@ export default {
 .select-boss {
   width: 40%;
   padding: 0.3rem 0;
+  min-width: 175px;
 }
 
 @media screen and (max-width: 1000px){
   .popup{
     width: 70%;
+  }
+}
+
+@media screen and (max-width: 1024px){
+  .popup{
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .popup{
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .popup {
+      width: 70%;
+  }
+  .form-block label {
+    margin-bottom: 1rem;
   }
 }
 </style>

@@ -1,14 +1,23 @@
 <template>
-  <div :id="user.id" class="flex-table row" @click.stop="switchShowEmployee">
-        <div class="flex-row" role="cell">
-          <span>{{
-            hasEmployees ?
-            (showEmployees === true ? '-' : '+') : ''
-          }}</span>
-          {{user.name}}
-        </div>
-        <div class="flex-row" role="cell">{{user.phone}}</div>
-        <UserList :id="user.id" v-if="hasEmployees" v-show="showEmployees" :users="users"/>
+  <div :id="user.id"
+    class="flex-table row"
+     @click.stop="switchShowEmployee">
+    <div class="wrapper" :class="hasEmployees ? classRowHoverEffect : ''">
+    <div class="flex-row">
+          <div class="cell" role="cell">
+              <span>{{
+                hasEmployees ?
+                (showEmployees === true ? '-' : '+') : ''
+              }}</span>
+              {{user.name}}
+          </div>
+    </div>
+
+    <div class="flex-row">
+          <div class="cell" role="cell">{{user.phone}}</div>
+    </div>
+    </div>
+    <UserList :id="user.id" v-if="hasEmployees" v-show="showEmployees" :users="users"/>
   </div>
 </template>
 
@@ -18,6 +27,9 @@ export default {
   data() {
     return {
       showEmployees: true,
+      classRowHoverEffect: {
+        'row-hovereffect': true,
+      },
     };
   },
   props: {
@@ -40,7 +52,6 @@ export default {
   },
   methods: {
     switchShowEmployee() {
-      debugger;
       if (this.hasEmployees) {
         this.showEmployees = !this.showEmployees;
       }
@@ -50,5 +61,17 @@ export default {
 </script>
 
 <style>
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.cell {
+  width: 100%;
+}
 
+.row-hovereffect:hover {
+  cursor: pointer;
+  font-weight: bolder;
+}
 </style>

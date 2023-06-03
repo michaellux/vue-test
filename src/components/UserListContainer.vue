@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-      <a class="button" href="#popup">Добавить</a>
+      <a class="add-button" href="#popup">Добавить</a>
       <UserList :isRoot="isRoot" :users="users"/>
       <AddUserItemPopUp :users="users"/>
     </div>
@@ -41,7 +41,7 @@ export default {
   margin: 2em;
 }
 
-.button {
+.add-button {
     background-color: #4CAF50;
     border: none;
     color: white;
@@ -51,5 +51,10 @@ export default {
     display: inline-block;
     font-size: 16px;
     margin-bottom: 2rem;
+    cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #27b12b;
 }
 </style>

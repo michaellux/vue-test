@@ -78,6 +78,11 @@ div {
   border-color: #1565C0;
 }
 
+.table-container .header .flex-row:hover {
+   background: #0080ff;
+   cursor: pointer;
+}
+
 .flex-table.row:nth-child(odd) .flex-row {
   background: #f4f2f1;
 }
