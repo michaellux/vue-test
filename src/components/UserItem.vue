@@ -1,8 +1,8 @@
 <template>
-  <div class="flex-table row">
+  <div :id="user.id" class="flex-table row">
         <div class="flex-row" role="cell">{{user.name}}</div>
         <div class="flex-row" role="cell">{{user.phone}}</div>
-        <UserList :id="user.id" v-if="hasEmployees" :users="users"/>
+        <UserList :allUsers="allUsers" :id="user.id" v-if="hasEmployees" :users="users"/>
   </div>
 </template>
 
@@ -18,13 +18,13 @@ export default {
     },
   },
   computed: {
-    hasEmployees() {
-      const users = this.$parent.$props.users;
-      return users.filter(user => user.parent === this.user.id).length > 0;
-    },
     users() {
-      const users = this.$parent.$props.users;
-      return users.filter(user => user.parent === this.user.id);
+      const rootUserList = this.$root.$children[0].$children[0];
+      const allUsers = rootUserList.users;
+      return allUsers.filter(user => user.parent === this.user.id);
+    },
+    hasEmployees() {
+      return this.users.length > 0;
     },
   },
 };
