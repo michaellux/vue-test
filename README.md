@@ -1,5 +1,5 @@
 # vue-test
-
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d60256c2a93d402badcc74318b3254de)](https://app.codacy.com/gh/michaellux/vue-test/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 > Test project for Roistat
 
 ## Build Setup
