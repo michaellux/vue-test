@@ -4,6 +4,9 @@
 
 # [Solution](https://roistat-michaellux-test-project.surge.sh/)
 
+![Скриншот программы](./Screenshot_1.png)
+![Скриншот программы](./Screenshot_2.png)
+
 ## Build Setup
 
 ``` bash
