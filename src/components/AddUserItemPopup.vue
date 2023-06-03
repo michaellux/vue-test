@@ -7,23 +7,32 @@
       <form>
         <div class="form-block">
           <label for="name">Имя</label>
-          <input required v-model="newUser.name"
+          <input required v-model="potentialUser.name"
           class="input-name" name="name" id="name" type="text">
         </div>
         <div class="form-block">
           <label for="phone">Телефон</label>
           <input required
-          v-model="newUser.phone" class="input-phone" name="phone" id="phone" type="tel">
+          v-model="potentialUser.phone" class="input-phone" name="phone" id="phone" type="tel">
         </div>
         <div class="form-block">
           <label for="boss">Начальник</label>
-          <select v-model="newUser.boss" class="select-boss" name="boss" id="boss">
+          <select v-model="potentialUser.boss" class="select-boss" name="boss" id="boss">
             <option value="">Нет начальника</option>
-            <option v-for="boss in bosses" :key="boss.id" :value="boss.id">{{boss.name}}</option>
+            <option
+            v-for="potentialBoss in potentialBosses"
+            :key="potentialBoss.id" :value="potentialBoss.id">{{potentialBoss.name}}</option>
           </select>
         </div>
-        <button type="button" @click="addUser"
-        class="save-button">Сохранить</button>
+        <p v-if="hasValidationFormErrors">
+          <b>Пожалуйста, проверьте введённую информацию.</b>
+          <ul>
+              <li
+                v-for="validationError in validationErrors"
+                :key="validationError.id">{{ validationError.name }}</li>
+          </ul>
+        </p>
+        <input type="button" @click="handleFormData" class="save-button" value="Сохранить">
       </form>
     </div>
   </div>
@@ -43,23 +52,31 @@ export default {
   },
   data() {
     return {
-      newUser: {
+      defaultSelect: 'Нет начальника',
+      potentialUser: {
         name: '',
         phone: '',
         boss: null,
       },
+      validationErrors: [],
     };
   },
   methods: {
+    handleFormData() {
+      this.clearValidationErrors();
+      if (this.checkFormForValidData()) {
+        this.addUser();
+      }
+    },
     addUser() {
       const users = this.$parent.users;
       const allUserIds = users.map(user => user.id);
       const maxUserId = Math.max(...allUserIds);
       const user = {
         id: maxUserId + 1,
-        name: this.newUser.name,
-        phone: this.newUser.phone,
-        parent: this.newUser.boss === '' ? null : this.newUser.boss,
+        name: this.potentialUser.name,
+        phone: this.potentialUser.phone,
+        parent: this.potentialUser.boss === '' ? null : this.potentialUser.boss,
       };
 
       const updatedUserList = [...this.$parent.users, user];
@@ -74,14 +91,42 @@ export default {
       const parsedUsers = JSON.stringify(users);
       localStorage.setItem('users', parsedUsers);
     },
+    checkFormForValidData() {
+      this.defineValidationErrors();
+
+      if (this.hasValidationFormErrors) {
+        return false;
+      }
+      return true;
+    },
+    clearValidationErrors() {
+      this.validationErrors = [];
+    },
+    defineValidationErrors() {
+      if (this.potentialUser.name === '') {
+        const validationNameError = { id: 1, name: 'Не указано имя' };
+        this.validationErrors = [...this.validationErrors, validationNameError];
+      }
+      if (this.СheckforWrongSymbolsInPhoneNumber(this.potentialUser.phone)) {
+        const validationSymbolsPhoneError = { id: 2, name: 'Неправильно указан телефон' };
+        this.validationErrors = [...this.validationErrors, validationSymbolsPhoneError];
+      }
+    },
+    СheckforWrongSymbolsInPhoneNumber(dataForCheck) {
+      const re = /^[0-9() -]+$/;
+      if (!re.test(dataForCheck)) {
+        return true;
+      }
+      return false;
+    },
   },
   computed: {
-    bosses() {
-      const users = this.$parent.users;
-      const employees = users.filter(user => user.parent !== null);
-      const bossesId = employees.map(employee => employee.parent);
-      const bosses = users.filter(user => bossesId.includes(user.id));
-      return bosses;
+    potentialBosses() {
+      const potentialBosses = this.$parent.users;
+      return potentialBosses;
+    },
+    hasValidationFormErrors() {
+      return this.validationErrors.length > 0;
     },
   },
 };
@@ -119,14 +164,16 @@ export default {
   margin-top: 0;
   color: #333;
   font-family: Tahoma, Arial, sans-serif;
+  font-size: 1rem;
 }
 
 .popup .close {
   position: absolute;
-  top: 20px;
-  right: 30px;
+  top: 10px;
+  right: 20px;
+  -webkit-transition: all 200ms;
   transition: all 200ms;
-  font-size: 30px;
+  font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
   color: #333;
@@ -143,6 +190,7 @@ export default {
 
 .form-block {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   margin: 2rem;
@@ -169,7 +217,7 @@ export default {
   padding: 0.3rem 0;
 }
 
-@media screen and (max-width: 700px){
+@media screen and (max-width: 1000px){
   .popup{
     width: 70%;
   }
